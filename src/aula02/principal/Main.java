@@ -6,20 +6,27 @@ import aula02.factories.ConectionFactory;
 import aula02.repositories.ClienteRepository;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Cliente cliente1 = new Cliente(null, "Ze", "123.154.698-52","Zeh@ze.com.br");
+        Cliente cliente1 = new Cliente(2, "Januario", "123.154.988-52","Januario@ze.com.br");
         try {
             IClienteRepository repository =  new ClienteRepository(ConectionFactory.getConnection());
            // ClienteRepository repository = new ClienteRepository(ConectionFactory.getConnection());
-            repository.create(cliente1);
-        } catch (SQLException throwables) {
+            List<Cliente> clientes = repository.findAll();
+            System.out.println(cliente1.getIdCliente() + " funcionou");
+
+            for (Cliente c: clientes) {
+                System.out.println(c.toString());
+                System.out.println("**********");
+            }
+        } catch (Exception throwables) {
             throwables.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
 
-        System.out.println("Cliente" + cliente1.getIdCliente() + " cadastrado com sucesso");
+
+        }
+
     }
-}
+
